@@ -1,47 +1,70 @@
 // GILLIAN HALLETT CABALLERO
 import Paper from '@mui/material/Paper';
 import { Avatar, Button, Grid, Typography } from '@mui/material';
-import { TextField }from '@mui/material';
+import { TextField } from '@mui/material';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import LoginIcon from '@mui/icons-material/Login';
 
-function Ut2 (){
-    const [us,setUsu] = useState('')
-    const [pas,setPas] = useState('')
-    const handleSubmit=(e)=>{
+import { useNavigate } from 'react-router-dom';
+
+//Importamos el useDispatch del react-redux
+import { useDispatch } from 'react-redux'
+//Importamos el componente loginActions que está en el fichero storelogin.js
+import { loginActions } from '../store/storelogin';
+
+
+function Ut2() {
+
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const [us, setUsu] = useState('')
+    const [pas, setPas] = useState('')
+    const handleSubmit = (e) => {
         e.preventDefault()
-        console.log (us, pas)
-        if (us.length !== 0 && pas.length !== 0 ){
+        console.log(us, pas)
+        if (us.length !== 0 && pas.length !== 0) {
             fetch(`http://localhost:3030/login?user=${us}&password=${pas}`)
-            .then(response => response.json())
-            .then(response => { 
-                if (response){
-                    if(Object.keys(response.data).length === 0){
-                        console.log('Datos incorrectos') 
-                    }else {
-                        console.log(response)
+                .then(response => response.json())
+                .then(response => {
+                    if (response) {
+                        if (Object.keys(response.data).length === 0) {
+                            console.log('Datos incorrectos')
+                        } else {
+                            console.log(response)
+                            if (response.data !== undefined) {
+                                console.log('entro, hago el dispatch y luego navego')
+                                //aquí pongo el dispatch para cambiar el estado a login en el store del redux
+                                dispatch(loginActions.login({
+                                    name: response.data.nombre,
+                                    rol: response.data.rol
+                                }))
+                                navigate('/home')
+                            }
+
+                        }
                     }
-                }
-            })
-            console.log (`http://localhost:3030/login?user=${us}&password=${pas}`)
-        } else{
-            console.log ('Campos vacios.')
+                })
+            console.log(`http://localhost:3030/login?user=${us}&password=${pas}`)
+        } else {
+            console.log('Campos vacios.')
 
         }
     }
-    return(
-        <Grid container justifyContent={"center"} alignItems={"center"} style={{minHeight:"100vh"}}>
+    return (
+        <Grid container justifyContent={"center"} alignItems={"center"} style={{ minHeight: "100vh" }}>
             <Grid item xs={3} md={3} l={2} xl={2}>
                 <Paper>
                     <Grid container justifyContent={"center"} alignItems={"center"}>
                         <Avatar>
                             <LoginIcon color='divider'></LoginIcon>
                         </Avatar>
-                       <Box onSubmit={handleSubmit} component={'form'}>
+                        <Box onSubmit={handleSubmit} component={'form'}>
                             <Typography variant="h2" color="primary" > Login</Typography>
-                            <TextField id='usuario' label='usuario' fullWidth autoFocus onChange={(e) => { setUsu(e.target.value) }} />
-                            <TextField id='contrasena' label='contraseña' type='password' fullWidth autoFocus onChange={(e) => { setPas(e.target.value) }}/>
+                            <TextField required id='usuario' label='usuario' fullWidth autoFocus onChange={(e) => { setUsu(e.target.value) }} />
+                            <TextField required id='contrasena' label='contraseña' type='password' fullWidth autoFocus onChange={(e) => { setPas(e.target.value) }} />
                             <Button id='boton' type='submit'>Iniciar sesion</Button>
                         </Box>
                     </Grid>
