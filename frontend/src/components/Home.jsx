@@ -25,7 +25,6 @@ function Home() {
      console.log('Datos del usuario en el store:', userData)
 
      const handleLogout = (e) => {
-        console.log('Datos del usuario en el etore:', userData)
         // Despachar una acción para cambiar el estado a "logout"
         dispatch( loginActions.logout() );
 
@@ -36,7 +35,7 @@ function Home() {
     return <>
     <Typography variant='h1'>Página home Gillian Hallett Caballero</Typography>
     <Typography variant='h2'>¡Bienvenido, {userData.userName} Rol: {userData.userRol}!</Typography>
-    <Button size='large' color='error' onClick={handleLogout} >Salir</Button>
+    <Button variant='contained' size='large' color='error' onClick={handleLogout} >Salir</Button>
     </>
     }
     export default Home
