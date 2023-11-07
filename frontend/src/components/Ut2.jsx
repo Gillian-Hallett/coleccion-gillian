@@ -32,6 +32,7 @@ function Ut2() {
                     if (response) {
                         if (Object.keys(response.data).length === 0) {
                             console.log('Datos incorrectos')
+                            alert('Credenciales incorrectas, vuelva a intentarlo.')
                         } else {
                             console.log(response)
                             if (response.data !== undefined) {
