@@ -41,7 +41,7 @@ function Home() {
     const handleSaveItem = (e) => {
         
         fetch(`http://localhost:3030/addItem?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio}`)
-        console.log ('viva españa')
+
     };
 
     return <>
@@ -49,7 +49,7 @@ function Home() {
             <Container>
                 <Toolbar>
                     <Grid container>
-                        <Grid item xs={1} md={2} lg={4}>
+                        <Grid item xs={1} md={2} lg={3}>
                             <AdbIcon />
                             <Typography sx={{ display: 'inline' }}> {userData.userName}</Typography>
                         </Grid>
@@ -62,12 +62,12 @@ function Home() {
                             <Link to='/home'>Informe</Link>
                         </Grid>
 
-                        <Grid item xs={3} md={0} lg={2}>
+                        <Grid item xs={3} md={1} lg={3}>
                             <Link to='/home'>Ayuda</Link>
                         </Grid>
 
-                        <Grid item xs={3} md={0}>
-                            <Button variant='container' onClick={handleLogout}>Salir</Button>
+                        <Grid item xs={1} md={1} lg={1}>
+                            <Button size='large' variant='container' onClick={handleLogout}>Salir</Button>
                         </Grid>
                     </Grid>
                 </Toolbar>
