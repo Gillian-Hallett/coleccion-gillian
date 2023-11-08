@@ -14,41 +14,43 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#fffd00',
+      main: '#fb080c',
     },
     secondary: {
-      main: '#00f511',
+      main: '#09f500',
     },
-    background: {
-      paper: '#ff0004',
-    },
+    divider: '#fb060a',
     text: {
-      primary: '#000ffb',
+      primary: '#d3f307',
       secondary: 'rgba(0,0,0,0.7)',
-      disabled: '#b77f49',
+      disabled: 'rgba(181,105,105,0.5)',
     },
     error: {
-      main: 'rgba(126,244,54,0.47)',
+      main: '#37f436',
+      dark: '#101010',
+      contrastText: 'rgba(0,0,0,0.87)',
     },
     success: {
-      main: '#ff0608',
+      main: '#f50606',
     },
-    divider: '#caff03',
+    background: {
+      paper: 'rgba(88,83,83,0.62)',
+    },
   },
   typography: {
     h1: {
       fontSize: '5.4rem',
       fontWeight: 1000,
-      lineHeight: 3,
       letterSpacing: '0.11em',
+      lineHeight: 3,
     },
     h2: {
-      fontSize: '4rem',
-      fontWeight: 100,
       lineHeight: 1.02,
+      fontWeight: 100,
+      fontSize: '4rem',
     },
     h3: {
-      fontSize: '2.3rem',
+      fontSize: '2.5rem',
       lineHeight: 1.15,
     },
     fontFamily: 'Oswald',
