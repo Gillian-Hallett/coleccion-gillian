@@ -6,6 +6,14 @@ import { loginActions } from '../store/storelogin'
 import { Button, Typography } from '@mui/material'
 import { AppBar, Grid, Toolbar, Paper, Box, Container, Link, TextField } from '@mui/material'
 import AdbIcon from '@mui/icons-material/Adb'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 function Home() {
 
@@ -21,7 +29,8 @@ function Home() {
     useEffect(() => {
         if (!isLoggedin) {
             navigate('/')
-        } 
+        }
+        handleGetItem()
     }, [isLoggedin, navigate])
 
     // Comprobamos por la consola qué obtenemos en userData
@@ -37,12 +46,52 @@ function Home() {
 
     const [item, setItem] = useState({ nombre: '', marca: '', tipo: '', precio: '' })
 
+    const [tableData, setTableData] = useState([])
+
 
     const handleSaveItem = (e) => {
-        
+
         fetch(`http://localhost:3030/addItem?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio}`)
 
+            .then(response => response.json())
+            .then(response => {
+                if (response > 0) {
+                    handleGetItem()
+                    alert('Datos guardados con éxito')
+                } else {
+                    alert('Datos no guardados')
+                }
+            })
     };
+
+    const handleDeleteItem=(id) => {
+
+         fetch(`http://localhost:3030/deleteItem?id=${id}`)
+
+            .then(response => response.json())
+            .then(response => {
+                if (response < 0) {
+                    alert('Datos no eliminados')
+                } else {
+                    handleGetItem()
+                    alert('Datos eliminados')
+                }
+            })
+    };
+
+    const handleGetItem = async (e) => {
+
+        const response = await fetch(`http://localhost:3030/getItems`)
+
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                if (Object.keys(response.data).length !== 0) {
+                    setTableData(response.data)
+                }
+            })
+    };
+
 
     return <>
         <AppBar position='static'>
@@ -67,7 +116,7 @@ function Home() {
                         </Grid>
 
                         <Grid item xs={1} md={1} lg={1}>
-                            <Button size='large' variant='container' onClick={handleLogout}>Salir</Button>
+                            <Button size='large' color='secundary' variant='container' onClick={handleLogout}>Salir</Button>
                         </Grid>
                     </Grid>
                 </Toolbar>
@@ -79,7 +128,8 @@ function Home() {
                 <Grid container spacing={2}>
                     <Grid item xs={3} md={3}>
                         <TextField
-                            label='Nombre' required
+                            label='Nombre'
+                            required
                             value={item.nombre}
                             /*Cuando el usuario escriba algo en el TextField nombre, se irá almacenando en el
                            atributo nombre del objeto item*/
@@ -110,14 +160,44 @@ function Home() {
                             onChange={(event) => setItem({ ...item, precio: event.target.value })}>
                         </TextField>
                     </Grid>
-                    <Grid item xs={5} md={5}/>
+                    <Grid item xs={5} md={5} />
                     <Grid item xs={2} md={2}>
                         <Button size='large' variant="container" onClick={handleSaveItem}>Insertar</Button>
                     </Grid>
                 </Grid>
-                
+
             </Box>
         </Paper>
+
+        <TableContainer>
+            <Table aria-label='Base de datos'>
+                <TableHead>
+                    <TableRow>
+                        <TableCell ></TableCell>
+                        <TableCell>Nombre</TableCell>
+                        <TableCell>Marca</TableCell>
+                        <TableCell>Tipo</TableCell>
+                        <TableCell>Precio</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {tableData.map((row) => (
+                        <TableRow key={row.id}>
+                            <TableCell>
+                                <Button onClick={() => handleDeleteItem(row.id)}>
+                                    <DeleteForeverIcon />
+                                </Button>
+                            </TableCell>
+                            <TableCell>{row.nombre}</TableCell>
+                            <TableCell>{row.marca}</TableCell>
+                            <TableCell>{row.tipo}</TableCell>
+                            <TableCell>{row.precio}</TableCell>
+                        </TableRow>
+                    ))}
+
+                </TableBody>
+            </Table>
+        </TableContainer>
     </>
 }
 export default Home

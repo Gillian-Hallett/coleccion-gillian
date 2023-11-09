@@ -1,6 +1,7 @@
 const db = require('./db')
 const helper = require('../helper')
 const config = require('../config')
+const e = require('express')
 
 //Función con la consulta para insertar datos en la base de datos: INSERT
 async function insertData(req, res) {
@@ -35,7 +36,7 @@ async function deleteData(req, res) {
 
     //En data almaceno los datos que me pasan para poder realizar el delete.
     const data = req.query
-    const result = await db.query('DELETE FROM coleccion')
+    const result = await db.query('DELETE FROM coleccion WHERE id ='+ data.id)
 
     /*En la variable result se almacena lo que devueve la consulta. Si accedemos a effectedRow nos da el número de filas de la base de
     datos que ha sido borrado. Si ese número es mayor que cero es que ha habido borrado en la base de datos.*/
