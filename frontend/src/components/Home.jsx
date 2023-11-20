@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginActions } from '../store/storelogin'
 import { Button, Typography } from '@mui/material'
-import { AppBar, Grid, Toolbar, Paper, Box, Container, Link, TextField } from '@mui/material'
-import AdbIcon from '@mui/icons-material/Adb'
+import { AppBar, Grid, Toolbar, Paper, Box, Container, TextField } from '@mui/material'
+import LoginIcon from '@mui/icons-material/Login';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { Link } from 'react-router-dom'
+
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -62,11 +65,15 @@ function Home() {
                     alert('Datos no guardados')
                 }
             })
+            item.nombre = ""
+            item.marca = ""
+            item.tipo = ""
+            item.precio = ""
     };
 
-    const handleDeleteItem=(id) => {
+    const handleDeleteItem = (id) => {
 
-         fetch(`http://localhost:3030/deleteItem?id=${id}`)
+        fetch(`http://localhost:3030/deleteItem?id=${id}`)
 
             .then(response => response.json())
             .then(response => {
@@ -99,7 +106,11 @@ function Home() {
                 <Toolbar>
                     <Grid container>
                         <Grid item xs={1} md={2} lg={3}>
-                            <AdbIcon />
+                        {userData.userRol === 'admin' ?
+                            <VpnKeyIcon/>
+                            :
+                            <LoginIcon />
+                        }
                             <Typography sx={{ display: 'inline' }}> {userData.userName}</Typography>
                         </Grid>
 
@@ -107,10 +118,11 @@ function Home() {
                             <Link to='/home'>Inicio</Link>
                         </Grid>
 
-                        <Grid item xs={3} md={1} lg={2}>
-                            <Link to='/home'>Informe</Link>
-                        </Grid>
-
+                        {userData.userRol === 'admin' &&
+                            <Grid item xs={3} md={1} lg={2}>
+                                <Link to='/Informe'>Informe</Link>
+                            </Grid>
+                        }
                         <Grid item xs={3} md={1} lg={3}>
                             <Link to='/home'>Ayuda</Link>
                         </Grid>
@@ -184,9 +196,15 @@ function Home() {
                     {tableData.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell>
-                                <Button onClick={() => handleDeleteItem(row.id)}>
-                                    <DeleteForeverIcon />
-                                </Button>
+                                {userData.userRol === 'admin' ?
+                                    <Button onClick={() => handleDeleteItem(row.id)}>
+                                        <DeleteForeverIcon />
+                                    </Button>
+                                :
+                                <Button disabled>
+                                        <DeleteForeverIcon />
+                                    </Button>
+                                }
                             </TableCell>
                             <TableCell>{row.nombre}</TableCell>
                             <TableCell>{row.marca}</TableCell>

@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import Ut2 from './components/Ut2'
 import Home from './components/Home'
+import Informe from './components/Informe'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 //importamos la función createBrowserRouter y el componente RouterProvider
 //de la librería react-router-dom
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: 'home',
                 element: <Home />
+            },
+            {
+                path: 'Informe',
+                element: <Informe />
             }
         ]
     }
