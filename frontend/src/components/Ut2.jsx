@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import { Avatar, Button, Grid, Typography } from '@mui/material';
 import { TextField } from '@mui/material';
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import LoginIcon from '@mui/icons-material/Login';
 
@@ -66,7 +66,14 @@ function Ut2() {
                             <Typography variant="h2" color="primary" > Login</Typography>
                             <TextField required id='usuario' label='usuario' fullWidth autoFocus onChange={(e) => { setUsu(e.target.value) }} />
                             <TextField required id='contrasena' label='contraseña' type='password' fullWidth autoFocus onChange={(e) => { setPas(e.target.value) }} />
-                            <Button id='boton' type='submit'>Iniciar sesion</Button>
+                            <Grid container>
+                                <Grid item xs={3} md={3} />
+                                <Grid item xs={8} md={8}>
+                                    <Tooltip title="Iniciar sesión" arrow>
+                                        <Button id='boton' type='submit' variant="contained">Iniciar sesion</Button>
+                                    </Tooltip>
+                                </Grid>
+                            </Grid>
                         </Box>
                     </Grid>
                 </Paper>

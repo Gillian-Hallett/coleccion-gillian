@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -12,29 +11,29 @@ import store from './store/index'
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#fb080c',
+      main: '#6f0871',
+      light: '#700873',
     },
     secondary: {
-      main: '#09f500',
+      main: '#142092',
     },
-    divider: '#fb060a',
     text: {
-      primary: '#d3f307',
-      secondary: 'rgba(0,0,0,0.7)',
       disabled: 'rgba(181,105,105,0.5)',
     },
     error: {
-      main: '#37f436',
-      dark: '#101010',
-      contrastText: 'rgba(0,0,0,0.87)',
+      main: '#d32f2f',
     },
     success: {
-      main: '#f50606',
+      main: '#2e7d32',
+    },
+    info: {
+      main: '#2796d2',
     },
     background: {
-      paper: 'rgba(88,83,83,0.62)',
+      default: '#121212',
+      paper: '#565353',
     },
   },
   typography: {

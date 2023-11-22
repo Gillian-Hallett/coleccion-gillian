@@ -3,13 +3,9 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginActions } from '../store/storelogin'
-import { Button, Typography } from '@mui/material'
-import { AppBar, Grid, Toolbar, Paper, Box, Container, TextField } from '@mui/material'
-import LoginIcon from '@mui/icons-material/Login';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { Button, Tooltip } from '@mui/material'
+import { Grid, Paper, Box, TextField } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { Link } from 'react-router-dom'
-
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,6 +13,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Barra from './Barra'
 
 function Home() {
 
@@ -65,10 +62,10 @@ function Home() {
                     alert('Datos no guardados')
                 }
             })
-            item.nombre = ""
-            item.marca = ""
-            item.tipo = ""
-            item.precio = ""
+        item.nombre = ""
+        item.marca = ""
+        item.tipo = ""
+        item.precio = ""
     };
 
     const handleDeleteItem = (id) => {
@@ -101,43 +98,11 @@ function Home() {
 
 
     return <>
-        <AppBar position='static'>
-            <Container>
-                <Toolbar>
-                    <Grid container>
-                        <Grid item xs={1} md={2} lg={3}>
-                        {userData.userRol === 'admin' ?
-                            <VpnKeyIcon/>
-                            :
-                            <LoginIcon />
-                        }
-                            <Typography sx={{ display: 'inline' }}> {userData.userName}</Typography>
-                        </Grid>
-
-                        <Grid item xs={3} md={1} lg={2}>
-                            <Link to='/home'>Inicio</Link>
-                        </Grid>
-
-                        {userData.userRol === 'admin' &&
-                            <Grid item xs={3} md={1} lg={2}>
-                                <Link to='/Informe'>Informe</Link>
-                            </Grid>
-                        }
-                        <Grid item xs={3} md={1} lg={3}>
-                            <Link to='/home'>Ayuda</Link>
-                        </Grid>
-
-                        <Grid item xs={1} md={1} lg={1}>
-                            <Button size='large' color='secundary' variant='container' onClick={handleLogout}>Salir</Button>
-                        </Grid>
-                    </Grid>
-                </Toolbar>
-            </Container>
-        </AppBar >
+        <Barra />
 
         <Paper elevation={0} >
             <Box component='form' autoComplete='off' onSubmit={handleSaveItem} >
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={3} md={3}>
                         <TextField
                             label='Nombre'
@@ -174,7 +139,9 @@ function Home() {
                     </Grid>
                     <Grid item xs={5} md={5} />
                     <Grid item xs={2} md={2}>
-                        <Button size='large' variant="container" onClick={handleSaveItem}>Insertar</Button>
+                        <Tooltip title="Insertar" arrow>
+                            <Button size="large" color="info" variant="contained" onClick={handleSaveItem}>Insertar</Button>
+                        </Tooltip>
                     </Grid>
                 </Grid>
 
@@ -196,15 +163,17 @@ function Home() {
                     {tableData.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell>
-                                {userData.userRol === 'admin' ?
-                                    <Button onClick={() => handleDeleteItem(row.id)}>
-                                        <DeleteForeverIcon />
-                                    </Button>
-                                :
-                                <Button disabled>
-                                        <DeleteForeverIcon />
-                                    </Button>
-                                }
+                                <Tooltip title="Borrar" arrow>
+                                    {userData.userRol === 'admin' ?
+                                        <Button onClick={() => handleDeleteItem(row.id)}>
+                                            <DeleteForeverIcon />
+                                        </Button>
+                                        :
+                                        <Button disabled>
+                                            <DeleteForeverIcon />
+                                        </Button>
+                                    }
+                                </Tooltip>
                             </TableCell>
                             <TableCell>{row.nombre}</TableCell>
                             <TableCell>{row.marca}</TableCell>

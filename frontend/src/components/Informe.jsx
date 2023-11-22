@@ -5,10 +5,9 @@ import Barra from "./Barra"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Tooltip } from '@mui/material'
 import { useState } from 'react';
 import InformeColeccion from "./InformeColeccion";
-
 
 function Informe() {
 
@@ -36,12 +35,8 @@ function Informe() {
     }, [isLoggedin, navigate])
 
     const dato = (e) => {
-
         nos(true)
         console.log(no)
-
-
-
     }
 
     return <>
@@ -49,8 +44,9 @@ function Informe() {
         <Grid container>
             <Grid item xs={5} md={5} />
             <Grid item xs={2} md={2}>
-                <Button size='large' variant="container" onClick={dato}> INFORME COLECCIÓN</Button>
-
+                <Tooltip title="Informe Colección" arrow>
+                    <Button size="large" color="info" variant="contained" onClick={dato}> INFORME COLECCIÓN</Button>
+                </Tooltip>
             </Grid>
         </Grid>
 

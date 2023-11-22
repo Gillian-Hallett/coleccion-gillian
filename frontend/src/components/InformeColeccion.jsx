@@ -28,11 +28,11 @@ function InformeColeccion(props) {
                     }
                     : undefined
             }
-            
+
             options={{
                 headerStyle: {
-                    backgroundColor: "black",
-                    color: "white"
+                    backgroundColor: "#6f0871",
+                    color: "black"
                 },
                 exportMenu: [
                     {
