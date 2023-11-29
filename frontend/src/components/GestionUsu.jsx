@@ -44,6 +44,7 @@ function GestionUsu() {
                         si(response.data)
                     }
                 })
+                handleGetItem()
         }
     }, [isLoggedin, navigate])
 
@@ -128,10 +129,15 @@ function GestionUsu() {
                         </TextField>
                     </Grid>
                 </Grid>
-                <Grid item xs={5} md={5}  />
+                <Grid item xs={5} md={5} />
                 <Grid item xs={2} md={2}>
                     <Tooltip title="Informe" arrow>
-                        <Button size="large" color="info" variant="contained" onClick={handleSaveItem}> INFORME</Button>
+                        {userData.userRol === 'admin' ?
+                            <Button size="large" color="info" variant="contained" onClick={handleSaveItem}> INFORME</Button>
+                            :
+                            <Button disabled></Button>
+                        }
+
                     </Tooltip>
                 </Grid>
             </Box>
@@ -162,7 +168,7 @@ function GestionUsu() {
                 </TableBody>
             </Table>
         </TableContainer>
-        
+
 
     </>
 
