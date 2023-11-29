@@ -8,7 +8,7 @@ import { AppBar, Grid, Toolbar, Container } from '@mui/material'
 import LoginIcon from '@mui/icons-material/Login';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { Link } from 'react-router-dom'
-import {Tooltip} from '@mui/material'
+import { Tooltip } from '@mui/material'
 
 
 function Barra() {
@@ -50,8 +50,13 @@ function Barra() {
                                 <Link to='/informe' style={{ color: "rgb(13, 22, 99)" }}>Informe</Link>
                             </Grid>
                         }
-                        <Grid item xs={3} md={1} lg={3}>
-                            <Link to='/Hallett_Caballero_Gillian_EXUT4_Manual.PDF'target='_blank' style={{ color: "#13208e" }}>Ayuda</Link>
+                        {userData.userRol === 'admin' &&
+                            <Grid item xs={3} md={1} lg={2}>
+                                <Link to='/GestionUsu' style={{ color: "rgb(13, 22, 99)" }}>Gestion</Link>
+                            </Grid>
+                        }
+                        <Grid item xs={3} md={1} lg={1}>
+                            <Link to='/Hallett_Caballero_Gillian_EXUT4_Manual.PDF' target='_blank' style={{ color: "#13208e" }}>Ayuda</Link>
                         </Grid>
 
                         <Grid item xs={1} md={1} lg={1}>
@@ -59,7 +64,7 @@ function Barra() {
                                 <Button size="large" color="info" variant="contained" onClick={handleLogout}>Salir</Button>
                             </Tooltip>
                         </Grid>
-                    </Grid> 
+                    </Grid>
                 </Toolbar>
             </Container>
         </AppBar >

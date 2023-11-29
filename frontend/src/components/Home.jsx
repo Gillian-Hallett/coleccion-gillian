@@ -96,7 +96,6 @@ function Home() {
             })
     };
 
-
     return <>
         <Barra />
 
