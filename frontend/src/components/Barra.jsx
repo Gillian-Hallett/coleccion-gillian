@@ -51,7 +51,7 @@ function Barra() {
                             </Grid>
                         }
                         <Grid item xs={3} md={1} lg={3}>
-                            <Link to='/myPdfFileName.PDF'target='_blank' style={{ color: "#13208e" }}>Ayuda</Link>
+                            <Link to='/Hallett_Caballero_Gillian_EXUT4_Manual.PDF'target='_blank' style={{ color: "#13208e" }}>Ayuda</Link>
                         </Grid>
 
                         <Grid item xs={1} md={1} lg={1}>
@@ -59,7 +59,7 @@ function Barra() {
                                 <Button size="large" color="info" variant="contained" onClick={handleLogout}>Salir</Button>
                             </Tooltip>
                         </Grid>
-                    </Grid>
+                    </Grid> 
                 </Toolbar>
             </Container>
         </AppBar >
